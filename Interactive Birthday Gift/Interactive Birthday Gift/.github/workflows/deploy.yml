@@ -27,6 +27,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Restore package.json from backup for Vite build
+        run: |
+          if [ ! -f package.json ] && [ -f package.json.vite-backup ]; then
+            cp package.json.vite-backup package.json
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: 20
